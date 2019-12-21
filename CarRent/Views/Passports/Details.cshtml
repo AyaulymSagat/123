@@ -1,0 +1,36 @@
+﻿@model CarRent.Models.Passport
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Passport</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.No)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegistationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.passportID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

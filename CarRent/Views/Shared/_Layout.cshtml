@@ -1,0 +1,176 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarRent</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <style>
+        table {
+            overflow: hidden;
+            border: 1px solid #d3d3d3;
+            background: #fefefe;
+            width: 70%;
+            margin: 5% auto 0;
+            -moz-border-radius: 5px; /* FF1+ */
+            -webkit-border-radius: 5px; /* Saf3-4 */
+            border-radius: 5px;
+            -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+            -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            padding: 18px 28px 18px;
+            text-align: center;
+        }
+
+        th {
+            padding-top: 22px;
+            text-shadow: 1px 1px 1px #fff;
+            background: #e8eaeb;
+        }
+
+        td {
+            border-top: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        tr.odd-row td {
+            background: #f6f6f6;
+        }
+
+        td.first, th.first {
+            text-align: left
+        }
+
+        td.last {
+            border-right: none;
+        }
+
+        td {
+            background: -moz-linear-gradient(100% 25% 90deg, #fefefe, #f9f9f9);
+            background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f9f9f9), to(#fefefe));
+        }
+
+        tr.odd-row td {
+            background: -moz-linear-gradient(100% 25% 90deg, #f6f6f6, #f1f1f1);
+            background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f1f1f1), to(#f6f6f6));
+        }
+
+        th {
+            background: -moz-linear-gradient(100% 20% 90deg, #e8eaeb, #ededed);
+            background: -webkit-gradient(linear, 0% 0%, 0% 20%, from(#ededed), to(#e8eaeb));
+        }
+
+        tr:first-child th.first {
+            -moz-border-radius-topleft: 5px;
+            -webkit-border-top-left-radius: 5px; /* Saf3-4 */
+        }
+
+        tr:first-child th.last {
+            -moz-border-radius-topright: 5px;
+            -webkit-border-top-right-radius: 5px; /* Saf3-4 */
+        }
+
+        tr:last-child td.first {
+            -moz-border-radius-bottomleft: 5px;
+            -webkit-border-bottom-left-radius: 5px; /* Saf3-4 */
+        }
+
+        tr:last-child td.last {
+            -moz-border-radius-bottomright: 5px;
+            -webkit-border-bottom-right-radius: 5px; /* Saf3-4 */
+        }
+    </style>
+    
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CarRent</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Passports" asp-action="Index">Passport</a></li>
+                        <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+                        <li><a asp-area="" asp-controller="EmployeeDetails" asp-action="Index">EmployeeDetails</a></li>
+                        <li><a asp-area="" asp-controller="Cars" asp-action="Index">Cars</a></li>
+                        <li><a asp-area="" asp-controller="Brands" asp-action="Index">Brands</a></li>
+                        <li><a asp-area="" asp-controller="RentedCars" asp-action="Index">RentedCars</a></li>
+
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <form asp-action="Logout" method="post" asp-controller="Account">
+                                    <button type="submit">Logout @User.Identity.Name</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        }
+                    </ul>
+                   
+                </div>
+            </div>
+        </nav>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - CarRent</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
